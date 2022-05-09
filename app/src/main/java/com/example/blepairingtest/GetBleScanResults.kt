@@ -43,9 +43,9 @@ class GetBleScanResults(context: Context) {
                 /*
                     Value > 0 causes onBatchScanResults to be executed
                     and it will deliver list of scan results.
-                    Currently set to 2s, modify as needed
+                    Currently set to 5s, modify as needed
                  */
-                .setReportDelay(2000L)
+                .setReportDelay(5000L)
                 .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
                 .build()
