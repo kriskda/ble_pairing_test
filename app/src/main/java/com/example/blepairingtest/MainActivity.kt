@@ -13,6 +13,7 @@ import com.example.blepairingtest.view.MainScreen
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private val pairingBroadcastReceiver = PairingBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +31,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val bondFilter = IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
+
+        /*
+        Register pairing broadcast receiver
+        setPin happens there
+        */
+        val pairingFilter = IntentFilter().apply {
+            addAction(BluetoothDevice.ACTION_PAIRING_REQUEST)
+        }
+        registerReceiver(pairingBroadcastReceiver, pairingFilter)
+
+        /*
+        Register bond receiver we can react to bond states
+        Maybe we could set setPin here as well?
+         */
+        val bondFilter = IntentFilter().apply {
+            addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
+        }
         registerReceiver(viewModel.bondStateReceiver, bondFilter)
     }
 
     override fun onStop() {
         super.onStop()
         unregisterReceiver(viewModel.bondStateReceiver)
+        unregisterReceiver(pairingBroadcastReceiver)
         viewModel.stopScan()
         viewModel.disconnect()
     }
