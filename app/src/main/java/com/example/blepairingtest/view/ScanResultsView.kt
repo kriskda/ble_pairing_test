@@ -13,6 +13,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.blepairingtest.ViewState
@@ -32,14 +33,29 @@ fun ScanResultsView(
         }
 
         when (viewState) {
-            ViewState.ScanState.NoResults -> Text(text = "No scan results")
-            ViewState.ScanState.Loading -> Text(text = "Scanning...")
+            ViewState.ScanState.NoResults -> {
+                Text(
+                    color = Color.Black,
+                    text = "No scan results"
+                )
+            }
+            ViewState.ScanState.Loading -> {
+                Text(
+                    color = Color.Black,
+                    text = "Scanning..."
+                )
+            }
             is ViewState.ScanState.Success ->
                 ScanResultsList(
                     scanResults = viewState.scanResults,
                     onConnect = onConnect,
                 )
-            is ViewState.ScanState.Failure -> Text(text = viewState.errorMessage)
+            is ViewState.ScanState.Failure -> {
+                Text(
+                    color = Color.Black,
+                    text = viewState.errorMessage
+                )
+            }
         }
     }
 }
@@ -73,6 +89,7 @@ private fun ScanResultsRow(
     ) {
         Column {
             Text(
+                color = Color.Black,
                 text = device.name ?: "UNKNOWN",
                 fontWeight = FontWeight.Bold
             )

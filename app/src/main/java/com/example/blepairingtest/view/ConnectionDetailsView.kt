@@ -10,6 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.blepairingtest.ViewState
@@ -22,10 +23,16 @@ fun ConnectionDetailsView(
     Box(modifier = Modifier.padding(4.dp)) {
         when (viewState) {
             ViewState.ConnectionState.NoConnections -> {
-                Text(text = "No connections")
+                Text(
+                    color = Color.Black,
+                    text = "No connections"
+                )
             }
             ViewState.ConnectionState.Connecting -> {
-                Text(text = "Connecting...")
+                Text(
+                    color = Color.Black,
+                    text = "Connecting..."
+                )
             }
             is ViewState.ConnectionState.Success -> {
                 ConnectionDetails(
@@ -34,7 +41,10 @@ fun ConnectionDetailsView(
                 )
             }
             is ViewState.ConnectionState.Failure -> {
-                Text(text = "Connection error: ${viewState.errorMessage}")
+                Text(
+                    color = Color.Black,
+                    text = "Connection error: ${viewState.errorMessage}"
+                )
             }
         }
     }
@@ -56,16 +66,24 @@ private fun ConnectionDetails(
             itemsIndexed(gattServices) { index, gattService ->
                 Column(modifier = Modifier.padding(4.dp)) {
                     Text(
+                        color = Color.Black,
                         text = "${index + 1}) Gatt service",
                         fontWeight = FontWeight.Bold
                     )
-                    Text(text = "${gattService.uuid}")
                     Text(
+                        color = Color.Black,
+                        text = "${gattService.uuid}"
+                    )
+                    Text(
+                        color = Color.Black,
                         text = "Characteristics",
                         fontWeight = FontWeight.Bold
                     )
                     gattService.characteristics.forEach { characteristic ->
-                        Text(text = "${characteristic?.uuid}")
+                        Text(
+                            color = Color.Black,
+                            text = "${characteristic?.uuid}"
+                        )
                     }
                 }
             }
